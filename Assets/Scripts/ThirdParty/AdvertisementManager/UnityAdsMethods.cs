@@ -43,14 +43,7 @@ public class UnityAdsMethods : BasicAdNetwork
 			break;                
 		case eAdsType.INTERSTITIAL:
 			
-			break;                
-		case eAdsType.VIDEO:
-			GoogleAnalytics.LogEvent (Constants.GA_CATEGORY_UNITY, Constants.GA_ACTION_REWARDED_VIDEO, Constants.GA_LABEL_UNITY_V_Requested);
-			break;
-
-		case eAdsType.REWARDEDVIDEO:
-			GoogleAnalytics.LogEvent (Constants.GA_CATEGORY_UNITY, Constants.GA_ACTION_REWARDED_VIDEO, Constants.GA_LABEL_UNITY_RV_Requested);
-			break;
+			break;          
 		default:
 			break;
 		}
@@ -65,67 +58,18 @@ public class UnityAdsMethods : BasicAdNetwork
 		case eAdsType.INTERSTITIAL:
 			
 			break;                
-		case eAdsType.VIDEO:
-			var vOptions = new ShowOptions { resultCallback = HandleShowResult };
-			Advertisement.Show ("video", vOptions);
-			break;
-
-		case eAdsType.REWARDEDVIDEO:
-			var rvOptions = new ShowOptions { resultCallback = HandleShowResult };
-			Advertisement.Show ("rewardedVideo", rvOptions);
-			break;
-		default:
-			break;
 		}
 	}
 
 	public override bool isAdReady ()
 	{
-		if (Advertisement.isInitialized) {
-			if (configuration.adType == eAdsType.REWARDEDVIDEO) {
-				return Advertisement.IsReady ("rewardedVideo");
-			} else {
-				return Advertisement.IsReady ("video");
-			}
-		}
+
 		return false;
 	}
 
 	public override eAdsNetwork GetAdNetworkInfo ()
 	{ 
 		return eAdsNetwork.UNITY;
-	}
-
-	private void HandleShowResult (ShowResult result)
-	{
-		switch (result) {
-		case ShowResult.Finished:
-			Debug.Log ("The ad was successfully shown.");
-			//
-			// YOUR CODE TO REWARD THE GAMER
-			// Give coins etc.
-			if (configuration.adType == eAdsType.REWARDEDVIDEO) {
-				GoogleAnalytics.LogEvent (Constants.GA_CATEGORY_UNITY, Constants.GA_ACTION_REWARDED_VIDEO, Constants.GA_LABEL_UNITY_RV_Completed);
-			} else {
-				GoogleAnalytics.LogEvent (Constants.GA_CATEGORY_UNITY, Constants.GA_ACTION_VIDEO, Constants.GA_LABEL_UNITY_V_Completed);
-			}
-
-			NGUITools.Broadcast ("RewardUser");
-
-			break;
-		case ShowResult.Skipped:
-			GoogleAnalytics.LogEvent (Constants.GA_CATEGORY_UNITY, Constants.GA_ACTION_VIDEO, Constants.GA_LABEL_UNITY_V_Skipped);
-			Debug.Log ("The ad was skipped before reaching the end.");
-			break;
-		case ShowResult.Failed:
-			if (configuration.adType == eAdsType.REWARDEDVIDEO) {
-				GoogleAnalytics.LogEvent (Constants.GA_CATEGORY_UNITY, Constants.GA_ACTION_REWARDED_VIDEO, Constants.GA_LABEL_UNITY_RV_Failed);
-			} else {
-				GoogleAnalytics.LogEvent (Constants.GA_CATEGORY_UNITY, Constants.GA_ACTION_VIDEO, Constants.GA_LABEL_UNITY_V_Failed);
-			}
-			Debug.LogError ("The ad failed to be shown.");
-			break;
-		}
 	}
 	#endregion
 }

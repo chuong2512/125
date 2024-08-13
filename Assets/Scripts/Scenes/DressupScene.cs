@@ -24,7 +24,6 @@ public class DressupScene : BasePanel {
 
 	void Start()
 	{
-		GoogleAnalytics.LogScreenView("DressUp_FishMakeover");
 		StartEyeBlinking();
 
 		InitializeBodiesArray();
@@ -266,7 +265,6 @@ public class DressupScene : BasePanel {
 	public void ShareBtnClicked()
 	{
 		SoundManager.Instance.PlayButtonClickSound ();
-		NativeShare.Instance.ShareScreenshotWithText("Awesome! Just Play this game");
 	}
 
 	public void RateusBtnClicked()

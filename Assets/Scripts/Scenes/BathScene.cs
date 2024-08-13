@@ -13,7 +13,6 @@ public class BathScene : BasePanel {
 
 	void Start()
 	{
-		GoogleAnalytics.LogScreenView("BathScene_FishMakeover");
 		AdvertisementManager.Instance.ShowBannerAd();
 		AdvertisementManager.Instance.ShowAd(eAdsLoop.MAINMENU);
 

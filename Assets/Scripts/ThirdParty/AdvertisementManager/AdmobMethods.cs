@@ -103,15 +103,13 @@ public class AdmobMethods : BasicAdNetwork
 	public void BannerAdOpened (object sender, EventArgs args)
 	{
 		// log analytics
-		GoogleAnalytics.LogEvent (Constants.GA_CATEGORY_ADMOB, Constants.GA_ACTION_BANNER, Constants.GA_LABEL_ADMOB_BANNER_Clicked);
-	}
+		}
 
 	public void BannerAdLoaded (object sender, EventArgs args)
 	{
 		bannerAdLoaded = true;
 		// Handle the ad loaded event.
-		GoogleAnalytics.LogEvent (Constants.GA_CATEGORY_ADMOB, Constants.GA_ACTION_BANNER, Constants.GA_LABEL_ADMOB_BANNER_Shown);
-	}
+		}
 
 
 
